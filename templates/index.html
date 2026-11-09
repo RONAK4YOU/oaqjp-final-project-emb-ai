@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emotion Detection</title>
+</head>
+<body>
+  <main>
+    <h1>Emotion Detection</h1>
+    <form id="emotion-form">
+      <label for="text">Enter text to analyze</label>
+      <textarea id="text" name="text" required></textarea>
+      <button type="submit">Analyze</button>
+    </form>
+    <p id="result" role="status"></p>
+  </main>
+  <script>
+    const form = document.getElementById("emotion-form");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const text = document.getElementById("text").value;
+      const params = new URLSearchParams({ textToAnalyze: text });
+      const response = await fetch(`/emotionDetector?${params}`);
+      document.getElementById("result").textContent = await response.text();
+    });
+  </script>
+</body>
+</html>
